@@ -50,5 +50,6 @@ $ ./src/zend -regtest -websocket
 ```
 $ git clone https://github.com/HorizenOfficial/Sidechains-SDK.git
 $ cd Sidechains-SDK
+$ export JAVA_HOME=/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/
 $ mvn clean package
 ```
