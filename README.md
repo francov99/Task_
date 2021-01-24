@@ -5,7 +5,7 @@
 Task: create a new sidechain
 OS: UBUNTU V20.04.1
 Zend_oo: v2.1.0-beta4
-Sidechain SDK: v0.2.6
+Sidechains SDK: v0.2.6
 ```
 
 ## Installing requeriments
