@@ -54,3 +54,30 @@ $ cd Sidechains-SDK
 $ export JAVA_HOME=/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/
 $ mvn clean package
 ```
+
+Response
+```
+[INFO] 
+[INFO] -----------------------< com.horizen:Sidechains >-----------------------
+[INFO] Building Sidechains 0.2.6                                          [4/4]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ Sidechains ---
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Sidechains 0.2.6:
+[INFO] 
+[INFO] io.horizen:sidechains-sdk .......................... SUCCESS [05:44 min]
+[INFO] sidechains-sdk-simpleapp ........................... SUCCESS [01:02 min]
+[INFO] sidechains-sdk-scbootstrappingtools ................ SUCCESS [ 22.021 s]
+[INFO] Sidechains ......................................... SUCCESS [  0.035 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  07:11 min
+[INFO] Finished at: 2021-01-24T11:11:34-06:00
+[INFO] ------------------------------------------------------------------------
+```
+## Run Bootstraping tool
+```
+$ java -jar tools/sctool/target/sidechains-sdk-scbootstrappingtools-0.2.6.jar
+```
