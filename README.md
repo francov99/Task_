@@ -21,7 +21,7 @@ $ sudo snap install --classic code
 ```
 $ sudo apt-get update
 $ sudo apt-get -y upgrade
-$ sudo apt-get -y install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip python zlib1g-dev bsdmainutils automake curl wget
+$ sudo apt-get -y install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev bsdmainutils automake curl wget
 ```
 ### Install sidechains-sdk dependencies
 ```
