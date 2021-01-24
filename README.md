@@ -41,5 +41,7 @@ $ sudo apt-get install sbt
 ```
 $ git clone https://github.com/HorizenOfficial/zend_oo/
 $ cd zend_oo
-$ 
+$ ./zcutil/build.sh -j$(nproc)
+$ ./zcutil/fetch-params.sh
+$ ./src/zend -regtest -websocket
 ```
