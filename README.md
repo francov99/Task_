@@ -45,3 +45,10 @@ $ ./zcutil/build.sh -j$(nproc)
 $ ./zcutil/fetch-params.sh
 $ ./src/zend -regtest -websocket
 ```
+
+## Build Sidechains-SDK
+```
+$ git clone https://github.com/HorizenOfficial/Sidechains-SDK.git
+$ cd Sidechains-SDK
+$ mvn clean package
+```
