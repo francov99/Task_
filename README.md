@@ -37,3 +37,9 @@ $ curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A
 $ sudo apt-get update
 $ sudo apt-get install sbt
 ```
+## Build Zend_oo 
+```
+$ git clone https://github.com/HorizenOfficial/zend_oo/
+$ cd zend_oo
+$ 
+```
