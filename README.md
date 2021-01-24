@@ -27,12 +27,12 @@ $ sudo apt-get -y install build-essential pkg-config libc6-dev m4 g++-multilib a
 ```
 $ sudo apt-get update
 $ sudo apt-get install -y software-properties-common
-$ wget -qO - https://adoptopenjdk.jfrog.io/adoptopendjdk/api/gpg/key/public | sudo apt-key add -
-$ sudo add-apt-repository -yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+$ wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+$ sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
 $ sudo apt-get update
-$  sudo apt-get install adoptopenjdk-8-hostpot
+$ sudo apt-get install adoptopenjdk-8-hotspot
 $ sudo apt-get install maven 
-$ echo "deb https://dl.bintray.com/sbt/debian/" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+$ echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 $ curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
 $ sudo apt-get update
 $ sudo apt-get install sbt
