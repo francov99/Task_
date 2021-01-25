@@ -452,15 +452,14 @@ Sidechains rest API on 127.0.0.1:9085
 
 ## Transfer from the mainchain to the sidechain
 
-# Transfer from the mainchain to the sidechain
-
-mainchain and sidechain balances
+Mainchain and sidechain balances
 ```
 $ ./src/zen-cli -regtest getbalance
 ```
 
 Response
 ```
+1326.49997892
 ```
 
 ```
@@ -469,15 +468,21 @@ $ curl -X POST "http://127.0.0.1:9085/wallet/balance" -H "accept: application/js
 
 Response
 ```
+{
+  "result": {
+    "balance": 1000000000
+  }
+}
 ```
+
 Send to the sidechain
 ```
-$ ./src/zen-cli -regtest sc_send "" 50 ""
+$ ./src/zen-cli -regtest sc_send "e5ec954a2f23cef339fb67a9150d2801920902406d7de70d99c50982625f9dc8" 5 "d1dc710c7fc6a72e5910f70562ee925cf97f482967f055530d95a4a68e6ae94c"
 ```
 
 Response
 ```
-
+dbaec4a205883398c5adfbf775006aeef732abb32ed5f91b4a63536bbff3329d
 ```
 
 Generate a new block in the mainchain
@@ -486,15 +491,51 @@ $ ./src/zen-cli -regtest generate 1
 ```
 Response
 ```
+[
+  "05cbb61ad8ff7db4f606d559725cdbc3c638415d3617857b99eff64032ee7844"
+]
 ```
 
 Verify block information
 ```
-$ ./src/zen-cli -regtest getblock "0f0023537c70d72a62c6b8c78321cef0026957e61f8dd68a09970ba98c2c0d01"
+$ ./src/zen-cli -regtest getblock "05cbb61ad8ff7db4f606d559725cdbc3c638415d3617857b99eff64032ee7844"
 ```
 
 Response
 ```
+{
+  "hash": "05cbb61ad8ff7db4f606d559725cdbc3c638415d3617857b99eff64032ee7844",
+  "confirmations": 1,
+  "size": 665,
+  "height": 222,
+  "version": 3,
+  "merkleroot": "5fe63fc441e4f5f94181ce56f25cc7539453a80fa4a0e80f153a1b480fd19fac",
+  "scTxsCommitment": "d740694124658c3ee5a97fed984d3d3d09d2d14d151570198245932f5eef432b",
+  "tx": [
+    "45443f996394a7def24aa69eb9618de99809e12d268c1359e11d25291b9c8ed4",
+    "dbaec4a205883398c5adfbf775006aeef732abb32ed5f91b4a63536bbff3329d"
+  ],
+  "cert": [
+  ],
+  "time": 1611541632,
+  "nonce": "0000526da4e46e922a4d1b98107ecf139cb562471325157e9e44cf14e06f000f",
+  "solution": "019eb49c144d214fdf16c8cd8f44871575f31ca7095cd2219596d25565d57f864e2a3754",
+  "bits": "200f0f02",
+  "difficulty": 1.000013172800801,
+  "chainwork": "0000000000000000000000000000000000000000000000000000000000000ecf",
+  "anchor": "59d2cde5e65c1414c32ba54f0fe4bdb3d67618125286e6a191317917c812c6d7",
+  "valuePools": [
+    {
+      "id": "sprout",
+      "monitored": true,
+      "chainValue": 0.00000000,
+      "chainValueZat": 0,
+      "valueDelta": 0.00000000,
+      "valueDeltaZat": 0
+    }
+  ],
+  "previousblockhash": "0238c80620309a4257a3c06c2f70c01122d77b0f22ad99907c2ee24a57d948d8"
+}
 ```
 
 
@@ -505,15 +546,28 @@ $ curl -X POST "http://127.0.0.1:9085/block/forgingInfo" -H "accept: application
 
 Response
 ```
+{
+  "result": {
+    "consensusSecondsInSlot": 120,
+    "consensusSlotsInEpoch": 720,
+    "bestEpochNumber": 1,
+    "bestSlotNumber": 720
+  }
+}
 ```
 
-Generate a block in the sidechain
+Generate a block in the sidechain - so next is epoch 2 and block one
 ```
 $ curl -X POST "http://127.0.0.1:9085/block/generate" -H "accept: application/json"  -H "Content-Type: application/json" -d "{\"epochNumber\":2,\"slotNumber\":1}"
 ```
 
 Response
 ```
+{
+  "result": {
+    "blockId": "ed026fc1521c266eb9653712d0b338a1e865f28a98ccf8f61055b48cdd975b64"
+  }
+}
 ```
 
 Sidechain balance
@@ -522,6 +576,11 @@ $ curl -X POST "http://127.0.0.1:9085/wallet/balance" -H "accept: application/js
 ```
 Response
 ```
+{
+  "result": {
+    "balance": 1500000000
+  }
+}
 ```
 
 Mainchain balance
@@ -531,6 +590,7 @@ $ ./src/zen-cli -regtest getbalance
 
 Response
 ```
+1330.24997591
 ```
 
 ## Transfer inside the sidechain
@@ -542,15 +602,27 @@ $ curl -X POST "http://127.0.0.1:9085/wallet/createPrivateKey25519" -H "accept: 
 
 Response
 ```
+{
+  "result": {
+    "proposition": {
+      "publicKey": "69f890250213d0cd8567dec8c1b7cd8623fd451c7db7f4c9cbb78a9f83ac97bd"
+    }
+  }
+}
 ```
 
 Transaction in the memory pool
 ```
-$ curl -X POST "http://127.0.0.1:9085/transaction/sendCoinsToAddress" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"outputs\":[{\"publicKey\":\"c6869f3aa8928fe57c24d41ceaca6a1fc57a6bdfdf309dc2de7552790c514bcc\",\"value\":1000000000}],\"fee\":0}"
+$ curl -X POST "http://127.0.0.1:9085/transaction/sendCoinsToAddress" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"outputs\":[{\"publicKey\":\"69f890250213d0cd8567dec8c1b7cd8623fd451c7db7f4c9cbb78a9f83ac97bd\",\"value\":500000000}],\"fee\":0}"
 ```
 
 Response
 ```
+{
+  "result": {
+    "transactionId": "b2f6e54fc18623632e19ba6fd42dd0fc95375c29005f0f1e16ab900effa2c56f"
+  }
+}
 ```
 
 Generate another block in the sidechain
@@ -560,6 +632,11 @@ $ curl -X POST "http://127.0.0.1:9085/block/generate" -H "accept: application/js
 
 Response
 ```
+{
+  "result": {
+    "blockId": "35e00385ed9f534b5cb2bb15f35d6dc93760cfdf84c8d4b06cd34147a24fbae7"
+  }
+}
 ```
 
 Balances
@@ -569,7 +646,209 @@ $ curl -X POST "http://127.0.0.1:9085/wallet/allBoxes" -H "accept: application/j
 
 Response
 ```
+{
+  "result": {
+    "boxes": [
+      {
+        "nonce": 2193836352432249000,
+        "id": "fb3bd2e9efa05553c87186762e43bdd84181969938c495161c6ff9daac767e27",
+        "typeId": 3,
+        "blockSignProposition": {
+          "publicKey": "e5ec954a2f23cef339fb67a9150d2801920902406d7de70d99c50982625f9dc8"
+        },
+        "vrfPubKey": {
+          "valid": true,
+          "publicKey": "80e01fab8918163b83c28ed1bb53ed249e50232117648834a2a6158f5520078e7fc3f84fb3e55154fcf90eba15843213a0060778033b96ae62e249515f73c37b9d0373abfb70f24e0c47f155d538733c451b21d7e120e14956d3d0734d130000e1d1ba1f71303d63788347eb5e308b6213d1241ade0bb68d4528b45f364297fb38fb2a6ce50f7127dbc31b2cf544a3c2cf613b6806a7cbdf7b9e9fa0c886dd1e02a60daed4390d511db1a41e6124497338b47320a70c6d3a71dde5f1bc54000000"
+        },
+        "proposition": {
+          "publicKey": "e5ec954a2f23cef339fb67a9150d2801920902406d7de70d99c50982625f9dc8"
+        },
+        "value": 1000000000
+      },
+      {
+        "nonce": -1579489155034396400,
+        "id": "3def5a263da756fbac6d9d1166b208175ef64333684893bb456186dd7036676a",
+        "typeId": 1,
+        "proposition": {
+          "publicKey": "69f890250213d0cd8567dec8c1b7cd8623fd451c7db7f4c9cbb78a9f83ac97bd"
+        },
+        "value": 500000000
+      }
+    ]
+  }
+}
 ```
 
 ## Backward transfer
+
+Mainchain balance
+
+```
+$ ./src/zen-cli -regtest getbalance
+```
+
+Sidechain balance 
+
+```
+$ curl -X POST "http://127.0.0.1:9085/wallet/balance" -H "accept: application/json"
+```
+
+Response
+```
+{
+  "result": {
+    "balance": 1500000000
+  }
+}
+```
+Generate mainchain address
+```
+$ ./src/zen-cli -regtest getnewaddress
+```
+
+Response
+```
+ztXicjHczKo6z1yQNZNRDybLEpRTQ11VVJN
+```
+Now withdraw the coins
+
+```
+curl -X POST "http://127.0.0.1:9085/transaction/withdrawCoins" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"outputs\":[{\"publicKey\":\"ztXicjHczKo6z1yQNZNRDybLEpRTQ11VVJN\",\"value\":500000000}],\"fee\":0}"
+```
+Response
+```
+{
+  "result": {
+    "transactionId": "0f3c6e7afa8aec8433048ed7849bf4eead04969397324493a6e669ff443fc2d8"
+  }
+}
+```
+
+Verify mempool transaction
+```
+curl -X POST "http://127.0.0.1:9085/transaction/allTransactions" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"format\":true}"
+```
+
+Response
+```
+{
+  "result": {
+    "transactions": [
+      {
+        "modifierTypeId": 2,
+        "id": "0f3c6e7afa8aec8433048ed7849bf4eead04969397324493a6e669ff443fc2d8",
+        "fee": 0,
+        "timestamp": 1611546028744,
+        "newBoxes": [
+          {
+            "nonce": 2722561166098081000,
+            "id": "e0027f1fbe20c11993ea9278972e0c823c62ef368cae13f742ebfa70040efc92",
+            "typeId": 2,
+            "proposition": {
+              "publicKey": "ztXicjHczKo6z1yQNZNRDybLEpRTQ11VVJN"
+            },
+            "value": 500000000
+          }
+        ],
+        "unlockers": [
+          {
+            "boxKey": {
+              "signature": "24df45c124962d97e9270bbeeaf3ab2d40f2fbd87e13921db38cec5ad015875fe1efca10929251ed827f706e321f886dd2906e9513293835fcac87a4daade403",
+              "typeId": 1
+            },
+            "closedBoxId": "3def5a263da756fbac6d9d1166b208175ef64333684893bb456186dd7036676a"
+          }
+        ],
+        "typeId": 3
+      }
+    ]
+  }
+}
+```
+Generate a new sidechain block
+```
+curl -X POST "http://127.0.0.1:9085/block/generate" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"epochNumber\":2,\"slotNumber\":3}"
+```
+
+Response
+```
+{
+  "result": {
+    "blockId": "6812c7be266997426972a8186ac28ebaa995040dffc948d0b640640697ac1ca0"
+  }
+}
+```
+Generate mainchain block 
+```
+./src/zen-cli -regtest generate 1
+```
+
+Response
+```
+[
+  "0614aff531ac302a29598374bc02d9e76f2d3022d4c15b7e71bbfb4b073375a2"
+]
+```
+In sidechain console 
+```
+[2-Hop-akka.actor.default-dispatcher-2371] INFO com.horizen.certificatesubmitter.CertificateSubmitter - Can't submit certificate, withdrawal epoch info = WithdrawalEpochInfo(0,2)
+```
+
+Create a block in mainchain and another one in the sidechain until move to the next epoch 
+```
+[2-Hop-akka.actor.default-dispatcher-6] INFO com.horizen.certificatesubmitter.CertificateSubmitter - Can submit certificate, withdrawal epoch info = WithdrawalEpochInfo(1,1)
+[2-Hop-akka.actor.default-dispatcher-6] INFO com.horizen.certificatesubmitter.CertificateSubmitter - Request last MC block hash for withdrawal epoch number 0 which are 07777d0d47c69b803adf905025992751b706f0acd00bf5ba01d0b2485cebf6d1
+[2-Hop-akka.actor.default-dispatcher-6] INFO com.horizen.certificatesubmitter.CertificateSubmitter - Request last MC block hash for withdrawal epoch number -1 which are 0cbf51d8b0155e2dafbfa302bcd3d318a5a6e94132eb6d031b4df6108394ae14
+[2-Hop-akka.actor.default-dispatcher-2371] INFO com.horizen.certificatesubmitter.CertificateSubmitter - Start generating proof for 0 withdrawal epoch number, with parameters: withdrawalRequests=(), endWithdrawalEpochBlockHash=07777d0d47c69b803adf905025992751b706f0acd00bf5ba01d0b2485cebf6d1, prevEndWithdrawalEpochBlockHash=0cbf51d8b0155e2dafbfa302bcd3d318a5a6e94132eb6d031b4df6108394ae14, signersThreshold=5. It can a while
+```
+...
+```
+[2-Hop-akka.actor.default-dispatcher-273] INFO com.horizen.SidechainState - Block contains successfully verified backward transfer certificate for epoch %d
+```
+**No create a block in mainchain and another one in sidechain again until moving to the second block of the next epoch** 
+
+Balances in mainchain
+
+```
+$ ./src/zen-cli -regtest listaddressgroupings
+```
+
+Response
+```
+[
+  [
+    [
+      "ztXicjHczKo6z1yQNZNRDybLEpRTQ11VVJN",
+      5.00000000,
+      ""
+    ]
+  ],
+  [
+    [
+      "ztYC1PVehPHab1yN93JqcoAE5JYX3JSFijb",
+      0.00000000
+    ]
+  ],
+  [
+    [
+      "ztjrBuHFNkx6sPow2SE1J3g5Sem2rS53NM3",
+      3.74999699
+    ],
+    [
+      "ztoZfdEqBxb2D1BcVsSuNHcqdafeMVF1W4W",
+      1405.24997892
+    ]
+  ]
+]
+```
+
+
+
+
+
+
+
+
+
+
 
