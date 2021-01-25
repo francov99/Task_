@@ -534,7 +534,7 @@ Response
 ```
 
 ## Transfer inside the sidechain
-new direction in the sidechain
+Generate a new address in the sidechain to transfer
 
 ```
 $ curl -X POST "http://127.0.0.1:9085/wallet/createPrivateKey25519" -H "accept: application/json"
@@ -544,7 +544,7 @@ Response
 ```
 ```
 
-transaction in the memory pool
+Transaction in the memory pool
 ```
 $ curl -X POST "http://127.0.0.1:9085/transaction/sendCoinsToAddress" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"outputs\":[{\"publicKey\":\"c6869f3aa8928fe57c24d41ceaca6a1fc57a6bdfdf309dc2de7552790c514bcc\",\"value\":1000000000}],\"fee\":0}"
 ```
@@ -562,12 +562,12 @@ Response
 ```
 ```
 
-balances
+Balances
 ```
 $ curl -X POST "http://127.0.0.1:9085/wallet/allBoxes" -H "accept: application/json" -H "Content-Type: application/json"
 ```
 
-Balances
+Response
 ```
 ```
 
