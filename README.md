@@ -10,6 +10,8 @@ Zend_oo: v2.1.0-beta4
 Sidechains SDK: v0.2.6
 ```
 
+> I found it very interesting how a sidechain works, I would like to see more documentation and tutorials on the sidechain.
+
 ## Installing requeriments
 ### Install git 
 ```
