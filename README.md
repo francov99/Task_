@@ -448,9 +448,11 @@ Simple Sidechain application successfully started...
 ```
 Sidechains rest API on 127.0.0.1:9085
 
-image
+![swagger](./swagger.jpg)
 
 ## Transfer from the mainchain to the sidechain
 
+## Transfer inside the sidechain
 
+## Backward transfer
 
