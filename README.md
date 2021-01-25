@@ -452,6 +452,87 @@ Sidechains rest API on 127.0.0.1:9085
 
 ## Transfer from the mainchain to the sidechain
 
+# Transfer from the mainchain to the sidechain
+
+mainchain and sidechain balances
+```
+$ ./src/zen-cli -regtest getbalance
+```
+
+Response
+```
+```
+
+```
+$ curl -X POST "http://127.0.0.1:9085/wallet/balance" -H "accept: application/json" -H "Content-Type: application/json"
+```
+
+Response
+```
+```
+Send to the sidechain
+```
+$ ./src/zen-cli -regtest sc_send "" 50 ""
+```
+
+Response
+```
+
+```
+
+Generate a new block in the mainchain
+```
+$ ./src/zen-cli -regtest generate 1
+```
+Response
+```
+```
+
+Verify block information
+```
+$ ./src/zen-cli -regtest getblock "0f0023537c70d72a62c6b8c78321cef0026957e61f8dd68a09970ba98c2c0d01"
+```
+
+Response
+```
+```
+
+
+Actual epoch in the sidechain
+```
+$ curl -X POST "http://127.0.0.1:9085/block/forgingInfo" -H "accept: application/json" -H "Content-Type: application/json"
+```
+
+Response
+```
+```
+
+Generate a block in the sidechain
+```
+$ curl -X POST "http://127.0.0.1:9085/block/generate" -H "accept: application/json"  -H "Content-Type: application/json" -d "{\"epochNumber\":2,\"slotNumber\":1}"
+```
+
+Response
+```
+```
+
+Sidechain balance
+```
+$ curl -X POST "http://127.0.0.1:9085/wallet/balance" -H "accept: application/json"
+```
+Response
+```
+```
+
+Mainchain balance
+```
+$ ./src/zen-cli -regtest getbalance
+```
+
+Response
+```
+```
+
 ## Transfer inside the sidechain
 
 ## Backward transfer
